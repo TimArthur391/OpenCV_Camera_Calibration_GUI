@@ -98,18 +98,18 @@ def correct_images(images, matrix, distortion, newcameramtx):
         # crop the image
         #x, y, w, h = roi
         #dst = dst[y:y+h, x:x+w]
-        output_filename = 'undistorted' + filename
+        output_filename = filename[:-4] + 'undistorted.jpg' 
         cv2.imwrite(output_filename, dst)
 
 
 # Get a list of the file locations where the calibration images are stored
 calibration_images = glob.glob('Calibration_images/*.jpg')
-
+print(calibration_images)
 # Get a list of the file locations where the images we want to flatten are stored
 images_to_undistort = glob.glob('Images_to_undistort/*.jpg')
 
 # Calibrate the camera and generate the specific camera matrix and distortion coefficients
-matrix, distortion, newcameramtx = get_camera_matrix_and_distortion_coefficients(calibration_images)
+#matrix, distortion, newcameramtx = get_camera_matrix_and_distortion_coefficients(calibration_images)
 
 # Flatten all of our images and store them in the same location with the preffix 'undistorted'
-correct_images(images_to_undistort, matrix, distortion, newcameramtx)
+#correct_images(images_to_undistort, matrix, distortion, newcameramtx)

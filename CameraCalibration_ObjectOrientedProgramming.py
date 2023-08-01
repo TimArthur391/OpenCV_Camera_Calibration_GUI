@@ -4,8 +4,6 @@ import numpy as np
 import os
 import glob
 
-#hi
-
 class CameraDistortionCorrection:
     def __init__(self):
         self.camera_matrix = None
