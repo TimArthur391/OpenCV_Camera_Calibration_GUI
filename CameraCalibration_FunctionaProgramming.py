@@ -103,10 +103,10 @@ def correct_images(images, matrix, distortion, newcameramtx):
 
 
 # Get a list of the file locations where the calibration images are stored
-calibration_images = glob.glob('Calibration_images/*.jpg')
-print(calibration_images)
+#calibration_images = glob.glob('Calibration_images/*.jpg')
+#print(calibration_images)
 # Get a list of the file locations where the images we want to flatten are stored
-images_to_undistort = glob.glob('Images_to_undistort/*.jpg')
+#images_to_undistort = glob.glob('Images_to_undistort/*.jpg')
 
 # Calibrate the camera and generate the specific camera matrix and distortion coefficients
 #matrix, distortion, newcameramtx = get_camera_matrix_and_distortion_coefficients(calibration_images)
