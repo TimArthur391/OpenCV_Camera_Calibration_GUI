@@ -79,6 +79,9 @@ def get_camera_matrix_and_distortion_coefficients(images):
     print("\n Distortion coefficient:")
     print(distortion)
 
+    print("\n New camera matrix:")
+    print(newcameramtx)
+
     #print("\n Rotation Vectors:")
     #print(r_vecs)
 
@@ -88,6 +91,7 @@ def get_camera_matrix_and_distortion_coefficients(images):
     return matrix, distortion, newcameramtx
 
 def correct_images(images, matrix, distortion, newcameramtx):
+    print(images,matrix, distortion, newcameramtx)
     for filename in images:
         img = cv2.imread(filename)
         h,  w = img.shape[:2]
@@ -99,7 +103,9 @@ def correct_images(images, matrix, distortion, newcameramtx):
         #x, y, w, h = roi
         #dst = dst[y:y+h, x:x+w]
         output_filename = filename[:-4] + 'undistorted.jpg' 
+        print(output_filename)
         cv2.imwrite(output_filename, dst)
+        print("Flatten complete")
 
 
 # Get a list of the file locations where the calibration images are stored
