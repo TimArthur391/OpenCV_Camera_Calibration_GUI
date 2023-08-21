@@ -3,6 +3,10 @@ from tkinter import filedialog
 import CameraCalibration_FunctionaProgramming as func
 import json
 from datetime import datetime  # Import the datetime module for getting the current date and time
+import glob
+import os
+import numpy as np
+
 
 class ImageLoaderApp:
     def __init__(self, root):
@@ -90,8 +94,23 @@ class ImageLoaderApp:
             with open(calibration_data_filename, "w") as json_file:
                 json.dump(calibration_data, json_file, indent=2, separators=(',',':'))
         elif function =="B":
-            #load calbration data into flatten function
-            func.correct_images(self.images_to_undistort,self.camera_matrix,self.distortion_coefficients, self.new_camera_matrix)
+            # Find the most recent calibration data JSON file to extract data and load into flatten function
+            calibration_data_files = glob.glob("calibration_data_*.json")
+            if calibration_data_files:
+                most_recent_calibration_file = max(calibration_data_files, key=os.path.getctime)
+                
+                # Load calibration data from the JSON file
+                with open(most_recent_calibration_file, "r") as json_file:
+                    calibration_data = json.load(json_file)
+                    flatten_camera_matrix = np.array(calibration_data["Camera Matrix"])
+                    flatten_distortion_coefficients = np.array(calibration_data["Distortion Coefficients"])
+                    flatten_new_camera_matrix = np.array(calibration_data["New Camera Matrix"])
+                    # Pass the calibration data to the correct_images function
+                    func.correct_images(self.images_to_undistort, flatten_camera_matrix, flatten_distortion_coefficients, flatten_new_camera_matrix)
+
+
+
+            #func.correct_images(self.images_to_undistort,self.camera_matrix,self.distortion_coefficients, self.new_camera_matrix)
         
 if __name__ == "__main__":
     root = tk.Tk()
